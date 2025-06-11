@@ -1,0 +1,74 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Edit.master.cs" Inherits="WebApp._master.Edit" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <link href="../Content/reset_edit.css" rel="stylesheet" />
+    <link href="../Content/layout.1.2.css" rel="stylesheet" />
+    <link href="../Content/pinTabs.css" rel="stylesheet" />
+    <link href="../Content/edit.css" rel="stylesheet" />
+    <link href="../Content/jqtree.css" rel="stylesheet" />
+    <link href="../Content/fancybox/jquery.fancybox.css" rel="stylesheet" />
+    <link href="../Scripts/jquery-ui-1.11.2/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../Content/grid.css" rel="stylesheet" />
+    <script type="text/javascript" src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-ui-1.11.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.ui.datepicker-zh-TW.js"></script>
+    <script type="text/javascript" src="../Scripts/purl.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.easytabs.min.js"></script>
+    <script type="text/javascript" src="../Scripts/tree.jquery.js"></script>
+    <script type="text/javascript" src="../Scripts/cyc.ext.1.3.js"></script>
+    <script type="text/javascript">
+        $(function () {
+<%--            $(document).on("click", '.etabs.tab a', function () { $("#<%=hidTabs.ClientID%>").val($(this).attr("href")) });--%>
+            CreateTab(); $("body").css({ "font-size": parent.$("body").css("font-size") });
+        });
+        function CreateTab() {
+            $("#tabs, .cycTabs").easytabs({ animate: false });
+        }
+        $.datepicker.setDefaults({
+            changeYear: true,
+            changeMonth: true
+        });
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="EditPanel" style="width:100%;">
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <div class="buttonArea">
+                        <asp:ContentPlaceHolder ID="ButtonArea" runat="server">
+
+                        </asp:ContentPlaceHolder>
+                    </div>
+                    <div id="tabs">
+                        <ul class='etabs'>
+                            <asp:ContentPlaceHolder ID="TabTitle" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </ul>
+                        <asp:ContentPlaceHolder ID="TabContent" runat="server">
+
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <div class="msgArea" style="top:0;margin:0 auto;z-index:1000;background-color:wheat;border:double .2em red;width:20em;min-height:5em;position:absolute;display:none;">
+                <input type="button" value="X" />
+                <div></div>
+            </div>
+        </div>
+        
+    </form>
+    <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(CreateTab);
+    </script>
+</body>
+</html>

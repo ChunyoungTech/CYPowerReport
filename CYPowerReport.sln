@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CYPowerReport", "CYPowerReport\CYPowerReport.csproj", "{79DA4161-DDD7-45F3-B834-F93146EF13FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cycBase", "cycBase\cycBase.csproj", "{14E700BE-3FE6-4337-B196-BB314A04F161}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79DA4161-DDD7-45F3-B834-F93146EF13FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79DA4161-DDD7-45F3-B834-F93146EF13FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DA4161-DDD7-45F3-B834-F93146EF13FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79DA4161-DDD7-45F3-B834-F93146EF13FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E700BE-3FE6-4337-B196-BB314A04F161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E700BE-3FE6-4337-B196-BB314A04F161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E700BE-3FE6-4337-B196-BB314A04F161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E700BE-3FE6-4337-B196-BB314A04F161}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94153E93-66D5-4230-860D-236333BD1571}
+	EndGlobalSection
+EndGlobal

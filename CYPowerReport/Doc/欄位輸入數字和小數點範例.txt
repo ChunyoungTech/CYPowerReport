@@ -1,0 +1,87 @@
+只能數字
+
+前端
+<asp:TextBox ID="txtOEO_ExamYear" runat="server" Columns="4" MaxLength="4" class="CheckNum"></asp:TextBox>
+
+    <script type="text/javascript">
+
+        function CheckNumber() {
+            //只能輸入數字
+            $(".CheckNum").blur(
+                function () {
+                    if ($(this).val() != "") {
+                        objStr = $(this).val();
+                        reg = /^[-+]?(0|[1-9][0-9]*)$/;
+                        regMatch = reg.test(objStr);
+                        if (!regMatch) {
+                            alert('請輸入正確數字');
+                            $(this).val('');
+                            $(this).focus();
+                        }
+                    }
+                }
+            );
+        }
+    </script>
+
+可以小數點
+<asp:TextBox ID="txtValue1" runat="server" Text="" Columns="15" MaxLength="19"  CssClass="ExamValue1"></asp:TextBox>
+
+    <script type="text/javascript">
+
+            //只能輸入數字
+            $(".ExamValue1").blur(function () {
+            if( $(this).val()!="")
+                {
+                    var n = $(this).val().indexOf("-");
+                    if (n>0)
+                    {
+                        alert("請輸入正確可含小數點數字(ex:11.1247)");
+                        $(this).val('');
+                        $(this).focus();
+                    }
+                    else if (!CheckNUM($(this).val(), 14, 4))
+                    {
+                        alert("請輸入正確可含小數點數字(ex:11.1247)");
+                        $(this).val('');
+                        $(this).focus();
+                    }
+                }
+            });
+
+       function CheckNUM(valueStr, iNum, fNum) {
+            var vIsErr = false;
+            try {
+                var a = parseFloat(valueStr);
+                if (isNaN(a)) { vIsErr = true; }
+                else {
+                    try {
+                        var NumArr = valueStr.split(".");
+
+                        if (NumArr[0].length > iNum) {
+                            vIsErr = true;
+                        }
+                        if (NumArr.length == 2) {
+                            if (NumArr[0].length > 1 && NumArr[0][0] == '0')
+                                vIsErr = true;
+
+                            if (NumArr[1].length > fNum || fNum == 0) {
+                                vIsErr = true;
+                            }
+                        }
+                        else {
+//                            if (valueStr[0] == '0')
+//                                vIsErr = true;
+                        }
+
+                        //alert("vIsErr:" + vIsErr);
+                    } catch (fErr) { vIsErr = true; }
+                }
+            } catch (err) { vIsErr = true; }
+            return !vIsErr;
+        }
+
+
+    </script>
+
+

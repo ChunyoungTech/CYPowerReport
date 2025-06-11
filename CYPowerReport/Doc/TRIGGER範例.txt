@@ -1,0 +1,78 @@
+create TRIGGER [dbo].[AUDI_HCDXP_Interface_WhiteList]
+ON [dbo].[HCDXP_Interface_WhiteList]
+FOR INSERT,UPDATE,DELETE
+AS
+DECLARE @strMode  CHAR(1)=''
+DECLARE @strMode_I  CHAR(1)
+DECLARE @strMode_D  CHAR(1)
+
+BEGIN
+	IF EXISTS(SELECT * FROM DELETED)
+		BEGIN
+			SET @strMode_I='Y'
+		END
+	IF EXISTS(SELECT * FROM INSERTED)
+		BEGIN
+			SET @strMode_D='Y'
+		END
+	if @strMode_D='Y' 
+		begin
+			if @strMode_I='Y'
+				begin
+					set @strMode='U'
+					INSERT INTO [dbo].[HCDXP_Interface_WhiteList_Log]
+						([IWL_Seq],[IWL_II_Seq]
+						,[IWL_Org_Id],[IWL_U_NO]
+						,[IWL_DISABLED]
+						,[IWL_CR_OID],[IWL_CR_EID],[IWL_CR_Date],[IWL_CR_IP]
+						,[IWL_UP_OID],[IWL_UP_EID],[IWL_UP_Date],[IWL_UP_IP]
+						,[IWL_UP_MODE])					
+					SELECT DEL.[IW_Seq],DEL.[IW_II_Seq]
+						,DEL.[IW_Org_Id],DEL.[IW_U_NO]
+						,DEL.[IW_DISABLED]
+						,DEL.[IW_CR_OID],DEL.[IW_CR_EID],DEL.[IW_CR_Date],DEL.[IW_CR_IP]
+						,DEL.[IW_UP_OID],DEL.[IW_UP_EID],DEL.[IW_UP_Date],DEL.[IW_UP_IP]
+						,@strMode
+						FROM DELETED DEL
+				end
+			else
+				begin
+					set @strMode='D'
+					INSERT INTO [dbo].[HCDXP_Interface_WhiteList_Log]
+						([IWL_Seq],[IWL_II_Seq]
+						,[IWL_Org_Id],[IWL_U_NO]
+						,[IWL_DISABLED]
+						,[IWL_CR_OID],[IWL_CR_EID],[IWL_CR_Date],[IWL_CR_IP]
+						,[IWL_UP_OID],[IWL_UP_EID],[IWL_UP_Date],[IWL_UP_IP]
+						,[IWL_UP_MODE])					
+					SELECT DEL.[IW_Seq],DEL.[IW_II_Seq]
+						,DEL.[IW_Org_Id],DEL.[IW_U_NO]
+						,DEL.[IW_DISABLED]
+						,DEL.[IW_CR_OID],DEL.[IW_CR_EID],DEL.[IW_CR_Date],DEL.[IW_CR_IP]
+						,DEL.[IW_UP_OID],DEL.[IW_UP_EID],DEL.[IW_UP_Date],DEL.[IW_UP_IP]
+						,@strMode
+						FROM DELETED DEL
+				end
+		end
+	else
+		begin
+			if @strMode_I='Y' 
+				begin
+					set @strMode='I'
+					INSERT INTO [dbo].[HCDXP_Interface_WhiteList_Log]
+						([IWL_Seq],[IWL_II_Seq]
+						,[IWL_Org_Id],[IWL_U_NO]
+						,[IWL_DISABLED]
+						,[IWL_CR_OID],[IWL_CR_EID],[IWL_CR_Date],[IWL_CR_IP]
+						,[IWL_UP_OID],[IWL_UP_EID],[IWL_UP_Date],[IWL_UP_IP]
+						,[IWL_UP_MODE])					
+					SELECT INS.[IW_Seq],INS.[IW_II_Seq]
+						,INS.[IW_Org_Id],INS.[IW_U_NO]
+						,INS.[IW_DISABLED]
+						,INS.[IW_CR_OID],INS.[IW_CR_EID],INS.[IW_CR_Date],INS.[IW_CR_IP]
+						,INS.[IW_UP_OID],INS.[IW_UP_EID],INS.[IW_UP_Date],INS.[IW_UP_IP]
+						,@strMode
+						FROM INSERTED INS
+				end
+		end
+END
