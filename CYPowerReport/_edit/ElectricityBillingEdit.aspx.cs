@@ -340,6 +340,10 @@ inner join vCaseDataALL as CBD on CBD.CBD_SEQ_ID = EB.CBD_ID where EC_SEQ_ID=@ID
                 bPara.Command = "select CBD_SEQ_ID,CBD_Case_Name" +
                     " from vCaseDataALL" +
                     " where CD_TYPE=@CD_TYPE and isnull(CBD_Case_Name,'')<>''";
+                if (iID == 0)
+                {
+                    bPara.Command += " and CBD_Stop_Date>=convert(varchar(10),getdate(),111)";
+                }
                 bPara.Parameter = new List<SqlParameter>() { new SqlParameter("@CD_TYPE", ddlCD_TYPE.SelectedValue) };
                 bPara.Result = oResult;
                 using (DataTable oDT = dDB.QueryDataTable(bPara))
